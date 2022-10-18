@@ -3,12 +3,15 @@ class PostsController < ApplicationController
 
   def index
     posts = Post.all
-    render json: posts
+    render json: posts, include: [ 'author.name', 'tags', 'title', 'content']
   end
-
   def show
-    post = Post.find(params[:id])
-    render json: post
+    post = Post.find_by(id: params[:id])
+    if post
+      render json: post, include: ['title', 'content', 'author.name', 'tags']
+    else 
+      render json: { errors: "Post not found" }
+    end
   end
 
   private

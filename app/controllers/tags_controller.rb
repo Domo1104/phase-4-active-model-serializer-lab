@@ -7,8 +7,9 @@ class TagsController < ApplicationController
   end
 
   def show
-    tag = Tag.find(params[:id])
+    tag = Tag.find_by(id: params[:id])
     render json: tag
+
   end
 
   private
